@@ -1,7 +1,9 @@
+$: << File.dirname(__FILE__)
+
 require 'zlib'
 require 'rack/request'
 require 'rack/response'
 require 'rack/utils'
 require 'time'
-require 'lib/git_http/app'
-require 'lib/git_http/middleware'
+require 'git_http/app'
+require 'git_http/middleware'

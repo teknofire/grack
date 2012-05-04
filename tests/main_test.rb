@@ -128,6 +128,22 @@ class GitHttpTest < Test::Unit::TestCase
     assert_equal 200, r.status
     assert_equal 41, r.body.size  # submodules have detached head
   end
+  
+  def test_with_uri_root_no_access
+    a1 = app
+    a1.set_config_setting(:uri_root, '/repos')
+    session = Rack::Test::Session.new(a1)
+    session.get "/example/info/refs?service=git-upload-pack"
+    assert_equal 404, session.last_response.status
+  end
+
+  def test_with_uri_root_access
+    a1 = app
+    a1.set_config_setting(:uri_root, '/repos')
+    session = Rack::Test::Session.new(a1)
+    session.get "/repos/example/info/refs?service=git-upload-pack"
+    assert_equal 200, session.last_response.status
+  end
 
   def test_config_upload_pack_off
     a1 = app

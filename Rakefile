@@ -1,3 +1,5 @@
+$: << File.dirname(__FILE__)
+
 task :default => :test
  
 desc "Run the tests."
